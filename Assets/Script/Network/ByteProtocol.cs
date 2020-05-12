@@ -42,7 +42,11 @@ public class ByteProtocol : INetworkProtocol
 
     public byte[] GetInputBytes()
     {
-        return bytes;
+        if (bytes.Length - (index + lastOffset) < 0)
+            return null;
+        byte[] last = new byte[bytes.Length - (index + lastOffset)];
+        Array.Copy(bytes, lastOffset + index, last, 0, last.Length);
+        return last;
     }
 
     public INetworkProtocol Init(byte[] bytes)
