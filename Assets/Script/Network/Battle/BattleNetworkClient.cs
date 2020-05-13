@@ -7,7 +7,7 @@ public class BattleNetworkClient : MonoBehaviour
 
     public static readonly Fixed deltaTime = new Fixed(0.066f);
 
-    private BattleNetworkHandler client;
+    private BattleNetworkHandler handler;
 
     private KeyboardInput keyboardInput;
 
@@ -16,16 +16,16 @@ public class BattleNetworkClient : MonoBehaviour
 
         keyboardInput = FindObjectOfType<KeyboardInput>();
 
-        client = new BattleNetworkHandler();
-        client.Connect(Gamedata.Instance.Ip, Gamedata.Instance.Port);
+        handler = new BattleNetworkHandler();
+        handler.Connect(Gamedata.Instance.Ip, Gamedata.Instance.Port);
     }
 
 
     private void FixedUpdate()
     {
-        if(client.MessageQue.Count > 0)
+        if(handler.MessageQue.Count > 0)
         {
-            client.ParseMessage(client.MessageQue.Dequeue());
+            handler.ParseMessage(handler.MessageQue.Dequeue());
         }
 
         CommitKey();
@@ -33,14 +33,14 @@ public class BattleNetworkClient : MonoBehaviour
 
     private void CommitKey()
     {
-        if (client == null || client.gameLoop == null)
+        if (handler == null || handler.gameLoop == null)
             return;
 
-        client.gameLoop.SetMovement(keyboardInput.Direction);
+        handler.gameLoop.SetMovement(keyboardInput.Direction);
     }
 
     private void OnDestroy()
     {
-        client.Stop();
+        handler.Stop();
     }
 }

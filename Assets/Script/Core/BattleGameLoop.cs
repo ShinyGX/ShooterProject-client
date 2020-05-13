@@ -11,7 +11,7 @@ public class BattleGameLoop
     //客户端帧
     private int clientStep = 0;
 
-    private BattleNetworkHandler client;
+    private BattleNetworkHandler handler;
 
     public Action update;
     public Action laterUpdate;
@@ -23,9 +23,14 @@ public class BattleGameLoop
         get;protected set;
     }
 
-    public BattleGameLoop(BattleNetworkHandler client)
+    public bool IsLoaclPlayer(int id)
     {
-        this.client = client;
+        return id == Gamedata.Instance.ClinetId;
+    }
+
+    public BattleGameLoop(BattleNetworkHandler handler)
+    {
+        this.handler = handler;
 
         timer = new Timer(BattleNetworkClient.deltaTime.ToFloat() * 1000);
         timer.Elapsed += SendFrame;
@@ -43,7 +48,7 @@ public class BattleGameLoop
 
         protocol.Push(movement.direction);
 
-        client.SendMessage(protocol.OutputBytesStream());
+        handler.SendMessage(protocol.OutputBytesStream());
     }
 
     public void SetMovement(Fixed2 dir)
