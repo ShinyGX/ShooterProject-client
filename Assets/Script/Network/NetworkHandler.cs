@@ -45,6 +45,7 @@ public class NetworkHandler
     private void ConnectCallback(IAsyncResult callback)
     {
         Connection.socket.BeginReceive(Connection.readBuff, 0, Connection.BufferRemain, SocketFlags.None, ReceiveCallback, Connection);
+        Init();
     }
 
     private void ReceiveCallback(IAsyncResult callback)
@@ -99,6 +100,10 @@ public class NetworkHandler
         Connection.socket.Close();
     }
 
+    protected virtual void Init()
+    {
+
+    }
 
 
 }

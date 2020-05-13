@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ByteProtocol : INetworkProtocol
 {
@@ -69,5 +67,42 @@ public class ByteProtocol : INetworkProtocol
     public void Push(byte[] b)
     {
         byteList.AddRange(b);
+    }
+
+    public void Push(Fixed2 v)
+    {
+        Push(v.X.Value);
+        Push(v.Y.Value);
+    }
+
+    public Fixed2 GetVector2()
+    {
+        Fixed x = GetFixed();
+        Fixed y = GetFixed();
+        return new Fixed2(x, y);
+    }
+
+    public void Push(Fixed v)
+    {
+        Push(v.Value);
+    }
+
+    public void Push(long int64)
+    {
+        byteList.AddRange(BitConverter.GetBytes(int64));
+    }
+
+    public Fixed GetFixed()
+    {
+        Fixed f = new Fixed();
+        f.SetValue(GetInt64());
+        return f;
+    }
+
+    public long GetInt64()
+    {
+        index += lastOffset;
+        lastOffset = 8;
+        return BitConverter.ToInt64(bytes, index);
     }
 }

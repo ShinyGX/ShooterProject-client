@@ -69,7 +69,7 @@ public struct Fixed2
         {
             if (X == 0 & Y == 0)
             {
-                return Fixed.Zero;
+                return Fixed.zero;
             }
             Fixed n = ((X * X) + (Y * Y)).Sqrt();
             return n;

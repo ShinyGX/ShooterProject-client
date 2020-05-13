@@ -3,6 +3,14 @@
 public class BattleNetworkHandler : NetworkHandler
 {
 
+    public BattleGameLoop gameLoop;
+
+    protected override void Init()
+    {
+        gameLoop = new BattleGameLoop(this);
+    }
+
+
     public void ParseMessage(INetworkProtocol protocol, int recursive = 0)
     {
         var mt = (MessageType)protocol.GetByte();
@@ -10,6 +18,9 @@ public class BattleNetworkHandler : NetworkHandler
         {
             case MessageType.Init:
                 Debug.Log("Get");
+
+                break;
+            case MessageType.Frame:
 
                 break;
             case MessageType.End:
@@ -29,9 +40,11 @@ public class BattleNetworkHandler : NetworkHandler
 
 
 
-    enum MessageType : byte
+    public enum MessageType : byte
     {
         Init = 1,
+        RandomSeed = 2,
+        Frame = 3,
         End = 255
     }
 }

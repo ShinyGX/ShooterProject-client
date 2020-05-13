@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class BattleNetworkClient : MonoBehaviour
 {
+
+    public static readonly Fixed deltaTime = new Fixed(0.066f);
+
     private BattleNetworkHandler client;
+
+    private KeyboardInput keyboardInput;
 
     void Awake()
     {
+
+        keyboardInput = FindObjectOfType<KeyboardInput>();
+
         client = new BattleNetworkHandler();
-        client.Connect("127.0.0.1", 9963);
-
-
+        client.Connect(Gamedata.Instance.Ip, Gamedata.Instance.Port);
     }
 
 
@@ -21,6 +27,16 @@ public class BattleNetworkClient : MonoBehaviour
         {
             client.ParseMessage(client.MessageQue.Dequeue());
         }
+
+        CommitKey();
+    }
+
+    private void CommitKey()
+    {
+        if (client == null || client.gameLoop == null)
+            return;
+
+        client.gameLoop.SetMovement(keyboardInput.Direction);
     }
 
     private void OnDestroy()

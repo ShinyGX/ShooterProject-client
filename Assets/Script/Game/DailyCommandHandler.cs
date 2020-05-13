@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DailyCommandHandler : CommandHandlerAdapter
 {
 
-    public Button btn_ready; 
+    public MatchView matchView;
 
     public override void OnReceve(object msg)
     {
@@ -39,7 +39,7 @@ public class DailyCommandHandler : CommandHandlerAdapter
         if(msg is MatchedRet)
         {
             //TODO: 进入ready模式
-            btn_ready.interactable = true;
+            matchView.ResetMathcStatus(false);
         }
 
         if(msg is StartRet)

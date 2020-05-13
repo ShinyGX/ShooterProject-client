@@ -5,7 +5,9 @@ using UnityEngine;
 public struct Fixed
 {
     public static readonly int bitFracbits = 16;
-    public static readonly Fixed Zero;
+
+    public static readonly Fixed zero = new Fixed(0);
+    public static readonly Fixed one = new Fixed(1);
 
     public Int64 Value
     {
@@ -201,10 +203,10 @@ public struct Fixed
     public static Fixed operator /(Fixed p1, Fixed p2)
     {
         Fixed tmp;
-        if (p2 == Fixed.Zero)
+        if (p2 == Fixed.zero)
         {
             Debug.LogWarning("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -218,7 +220,7 @@ public struct Fixed
         if (p2 == 0)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -232,7 +234,7 @@ public struct Fixed
         if (p2 == 0)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -243,10 +245,10 @@ public struct Fixed
     public static Fixed operator /(int p1, Fixed p2)
     {
         Fixed tmp;
-        if (p2 == Zero)
+        if (p2 == zero)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -261,7 +263,7 @@ public struct Fixed
         if (p2 == 0)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -272,10 +274,10 @@ public struct Fixed
     public static Fixed operator /(Int64 p1, Fixed p2)
     {
         Fixed tmp;
-        if (p2 == Zero)
+        if (p2 == zero)
         {
             UnityEngine.Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -291,10 +293,10 @@ public struct Fixed
     public static Fixed operator /(float p1, Fixed p2)
     {
         Fixed tmp;
-        if (p2 == Zero)
+        if (p2 == zero)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
@@ -309,7 +311,7 @@ public struct Fixed
         if (p2 > -0.000001f && p2 < 0.000001f)
         {
             Debug.LogError("/0");
-            tmp.bit = Zero.bit;
+            tmp.bit = zero.bit;
         }
         else
         {
