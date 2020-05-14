@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleNetworkHandler : NetworkHandler
@@ -14,14 +13,6 @@ public class BattleNetworkHandler : NetworkHandler
         gameLoop = new BattleGameLoop(this);
     }
 
-    //private void AddNetGameManager(INetGameManager[] managers)
-    //{
-    //    netGameManagerList.AddRange(managers);
-    //    netGameManagerList.Sort((a, b) =>
-    //    {
-    //        return a.Layer > b.Layer ? 1 : -1;
-    //    });
-    //}
 
     public void ParseMessage(INetworkProtocol protocol, int recursive = 0)
     {
@@ -30,6 +21,7 @@ public class BattleNetworkHandler : NetworkHandler
         {
             case MessageType.Init:
                 Debug.Log("Get");
+                Gamedata.Instance.ClinetId = protocol.GetInt32();
                 random = new Random((UInt64)protocol.GetInt64());
 
                 PlayerCreator.Instance.OnInit(this);
