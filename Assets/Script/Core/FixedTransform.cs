@@ -7,4 +7,6 @@ public class FixedTransform : FixedComponent
     public Fixed3 position;
     public Fixed3 rotation;
     public Fixed3 scale;
+
+
 }

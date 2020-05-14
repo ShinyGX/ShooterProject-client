@@ -13,8 +13,8 @@ public class BattleNetworkClient : MonoBehaviour
 
     void Awake()
     {
-
         keyboardInput = FindObjectOfType<KeyboardInput>();
+
 
         handler = new BattleNetworkHandler();
         handler.Connect(Gamedata.Instance.Ip, Gamedata.Instance.Port);

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class NetGameObject
 {
     public string tag;
     public string name;
+
+    public string prefab;
 
     public int clientId = -1;
 
@@ -20,7 +23,7 @@ public class NetGameObject
 
     public BattleNetworkHandler handler;
 
-    public Fixed deltaTime
+    public Fixed DeltaTime
     {
         get
         {
@@ -85,5 +88,29 @@ public class NetGameObject
         active = false;
 
     }
+    public GameObject InstantiateGameObject()
+    {
+        GameObject obj = GameObject.Instantiate(GetPrefab());
+        var view = obj.GetComponent<NetGameObjectView>();
+        if (view == null)
+            view = obj.AddComponent<NetGameObjectView>();
+        view.NetGameObject = this;
 
+        return obj;
+    }
+
+    public GameObject GetPrefab()
+    {
+        var prefab = Resources.Load(PrefabPath()) as GameObject;
+        if (prefab == null)
+        {
+            Debug.LogError("{" + PrefabPath() + "}is Null");
+        }
+        return prefab;
+    }
+
+    private string PrefabPath()
+    {
+        return "Prefabs/" + prefab;
+    }
 }
