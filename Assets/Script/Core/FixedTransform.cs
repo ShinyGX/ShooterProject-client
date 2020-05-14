@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FixedTransform : FixedComponent
 {
-    private Fixed3 position;
-    private Fixed3 rotation;
-    private Fixed3 scale;
+    public Fixed3 position;
+    public Fixed3 rotation;
+    public Fixed3 scale;
 }

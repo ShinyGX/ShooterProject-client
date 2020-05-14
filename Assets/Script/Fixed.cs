@@ -1,9 +1,34 @@
 ﻿using System;
 using UnityEngine;
 
+public static class FixedExtended
+{
+    public static Fixed ToFixed(this Int32 i)
+    {
+        return new Fixed(i);
+    }
+
+    public static Fixed ToFixed(this float f)
+    {
+        return new Fixed(f);
+    }
+
+    public static Fixed2 ToFixed(this Vector2 v)
+    {
+        return new Fixed2(v.x, v.y);
+    }
+
+    public static Fixed3 ToFixed(this Vector3 v)
+    {
+        return new Fixed3(v.x, v.y, v.z);
+    }
+}
+       
 [Serializable]
 public struct Fixed
 {
+
+
     public static readonly int bitFracbits = 16;
 
     public static readonly Fixed zero = new Fixed(0);
