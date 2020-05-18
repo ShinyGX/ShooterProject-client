@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FixedTransform : FixedComponent
 {
-    public Fixed3 position;
-    public Fixed3 rotation;
-    public Fixed3 scale;
+    public Fixed3 position = Fixed3.zero;
+    public Fixed3 rotation = Fixed3.zero;
+    public Fixed3 scale = new Fixed3(1, 1, 1);
 
 
 }

@@ -17,7 +17,7 @@ public class NetGameObject
     public Action onStart;
     public Action netUpdate;
 
-    public FixedTransform transform;
+    public FixedTransform transform = new FixedTransform();
     public List<FixedComponent> fixedComponents;
 
 
@@ -111,6 +111,6 @@ public class NetGameObject
 
     private string PrefabPath()
     {
-        return "Prefabs/" + prefab;
+        return "Perfabs/" + prefab;
     }
 }

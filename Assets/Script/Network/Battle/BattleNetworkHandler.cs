@@ -20,18 +20,29 @@ public class BattleNetworkHandler : NetworkHandler
         switch (mt)
         {
             case MessageType.Init:
-                Debug.Log("Get");
-                Gamedata.Instance.ClinetId = protocol.GetInt32();
-                random = new Random((UInt64)protocol.GetInt64());
-
-                PlayerCreator.Instance.OnInit(this);
-
-
+                Gamedata.Instance.ClinetId = protocol.GetByte();
+                Debug.Log("Get " + Gamedata.Instance.ClinetId.ToString());
+                break;
+            case MessageType.RandomSeed:
+                int seed = protocol.GetInt32();
+                random = new Random((UInt64)seed);
+                Debug.Log("random seed" + seed.ToString());
+                 PlayerCreator.Instance.OnInit(this);
                 break;
             case MessageType.Frame:
-
+                int len = protocol.GetInt32();
+                for (int i = 0;i < len;i++)
+                {
+                    if (protocol.GetByte() == 1)
+                    {
+                        protocol.GetVector2();
+                    }
+                }
+                //protocol.GetVector2();
+                Debug.Log("get frame " + len);
                 break;
             case MessageType.End:
+                Debug.Log("Get End");
                 break;
             default:
                 Debug.Log("error message type : " + mt.ToString());
@@ -42,7 +53,10 @@ public class BattleNetworkHandler : NetworkHandler
             ParseMessage(protocol, recursive + 1);
 
         if (protocol.Length > 0)
-            Debug.Log("not parse: " + protocol.Length.ToString());
+        {
+            ParseMessage(protocol, recursive + 1);
+        }
+            //Debug.Log("not parse: " + protocol.Length.ToString());
 
     }
 
@@ -51,7 +65,8 @@ public class BattleNetworkHandler : NetworkHandler
     public enum MessageType : byte
     {
         Init = 1,
-        Frame = 2,
+        RandomSeed = 2,
+        Frame = 3,
         End = 255
     }
 }
