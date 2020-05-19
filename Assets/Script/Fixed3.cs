@@ -4,57 +4,43 @@ using UnityEngine;
 
 public struct Fixed3
 {
-    public Fixed X
-    {
-        get;
-        private set;
-    }
-
-    public Fixed Y
-    {
-        get;
-        private set;
-    }
-
-    public Fixed Z
-    {
-        get;
-        private set;
-    }
+    public Fixed x;
+    public Fixed y;
+    public Fixed z;
 
     public Fixed3(int x = 0, int y = 0, int z = 0)
     {
-        this.X = new Fixed(x);
-        this.Y = new Fixed(y);
-        this.Z = new Fixed(z);
+        this.x = new Fixed(x);
+        this.y = new Fixed(y);
+        this.z = new Fixed(z);
 
     }
     public Fixed3(float x, float y, float z)
     {
 
-        this.X = new Fixed(x);
-        this.Y = new Fixed(y);
-        this.Z = new Fixed(z);
+        this.x = new Fixed(x);
+        this.y = new Fixed(y);
+        this.z = new Fixed(z);
 
     }
     public Fixed3(Fixed x, Fixed y, Fixed z)
     {
-        this.X = x;
-        this.Y = y;
-        this.Z = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
     public Vector3 ToVector3()
     {
-        return new Vector3(X.ToFloat(), Y.ToFloat(), Z.ToFloat());
+        return new Vector3(x.ToFloat(), y.ToFloat(), z.ToFloat());
     }
 
     public static Fixed3 operator +(Fixed3 a, Fixed3 b)
     {
-        return new Fixed3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        return new Fixed3(a.x + b.x, a.y + b.y, a.z + b.z);
     }
     public static Fixed3 operator -(Fixed3 a, Fixed3 b)
     {
-        return new Fixed3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        return new Fixed3(a.x - b.x, a.y - b.y, a.z - b.z);
     }
 
 
@@ -70,16 +56,16 @@ public struct Fixed3
     }
     public static Fixed Dot(Fixed3 a, Fixed3 b)
     {
-        return a.X * b.X + b.Y * a.Y;
+        return a.x * b.x + b.y * a.y;
     }
 
     public static Fixed3 operator -(Fixed3 a)
     {
-        return new Fixed3(-a.X, -a.Y, -a.Z);
+        return new Fixed3(-a.x, -a.y, -a.z);
     }
 
     public override string ToString()
     {
-        return "{" + X.ToString() + "," + Y.ToString() + "}";// + ":" + ToVector3().ToString();
+        return "{" + x.ToString() + "," + y.ToString() + "}";// + ":" + ToVector3().ToString();
     }
 }

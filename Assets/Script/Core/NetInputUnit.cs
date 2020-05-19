@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VirtualInput : MonoBehaviour
+public class NetInputUnit
 {
+
     public Fixed2 Direction
     {
         get;
@@ -11,4 +12,9 @@ public class VirtualInput : MonoBehaviour
     }
 
 
+
+    public void ReceviceStep(INetworkProtocol protocol)
+    {
+        Direction = protocol.GetVector2();
+    }
 }

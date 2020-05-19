@@ -10,7 +10,7 @@ public class Random
 
     public int Next()
     {
-        seed = seed * 439677L;
+        seed = seed * 214013L;
         return (int)((seed) >> 16 & 0x7fff);
     }
 

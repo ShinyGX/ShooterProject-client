@@ -71,8 +71,8 @@ public class ByteProtocol : INetworkProtocol
 
     public void Push(Fixed2 v)
     {
-        Push(v.X.Value);
-        Push(v.Y.Value);
+        Push(v.x.Value);
+        Push(v.y.Value);
     }
 
     public Fixed2 GetVector2()
@@ -104,5 +104,10 @@ public class ByteProtocol : INetworkProtocol
         index += lastOffset;
         lastOffset = 8;
         return BitConverter.ToInt64(bytes, index);
+    }
+
+    public bool GetBool()
+    {
+        return GetByte() == 1;
     }
 }

@@ -13,13 +13,13 @@ public class PlayerCreator : MonoSignleton<PlayerCreator>, INetGameManager
         var playerPos = new Fixed2(handler.random.Range(0, 20), handler.random.Range(0, 20));
         for (int i = 0; i < player; i++)
         {
-            var netObj = new NetGameObject();
+            var netObj = new PlayerNetObject();
             netObj.Init(handler, i);
             netObj.prefab = "Player1";
 
             var localPos = playerPos + Fixed2.left * i.ToFixed();
             netObj.transform.position =
-                new Fixed3(localPos.X, Fixed.zero, localPos.Y);
+                new Fixed3(localPos.x, Fixed.zero, localPos.y);
 
             netObj.InstantiateGameObject();
         }

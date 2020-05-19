@@ -10,7 +10,7 @@ public class BattleNetworkHandler : NetworkHandler
 
     protected override void Init()
     {
-        gameLoop = new BattleGameLoop(this);
+        gameLoop = new BattleGameLoop(this, 5);
     }
 
 
@@ -26,23 +26,13 @@ public class BattleNetworkHandler : NetworkHandler
             case MessageType.RandomSeed:
                 int seed = protocol.GetInt32();
                 random = new Random((UInt64)seed);
-                Debug.Log("random seed" + seed.ToString());
-                 PlayerCreator.Instance.OnInit(this);
+                Debug.Log("random seed " + seed.ToString());
+                PlayerCreator.Instance.OnInit(this);
                 break;
             case MessageType.Frame:
-                int len = protocol.GetInt32();
-                for (int i = 0;i < len;i++)
-                {
-                    if (protocol.GetByte() == 1)
-                    {
-                        protocol.GetVector2();
-                    }
-                }
-                //protocol.GetVector2();
-                Debug.Log("get frame " + len);
+                gameLoop.ReceiveStep(protocol);
                 break;
             case MessageType.End:
-                Debug.Log("Get End");
                 break;
             default:
                 Debug.Log("error message type : " + mt.ToString());

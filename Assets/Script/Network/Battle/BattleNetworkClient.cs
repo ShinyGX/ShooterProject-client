@@ -17,6 +17,7 @@ public class BattleNetworkClient : MonoBehaviour
 
 
         handler = new BattleNetworkHandler();
+   
         handler.Connect("127.0.0.1",9999);
     }
 

@@ -2,48 +2,39 @@
 
 public struct Fixed2 
 {
-    public Fixed X
-    {
-        get;
-        private set;
-    }
-
-    public Fixed Y
-    {
-        get;
-        private set;
-    }
+    public Fixed x;
+    public Fixed y;
 
     public Fixed2(float x,float y)
     {
-        this.X = new Fixed(x);
-        this.Y = new Fixed(y);
+        this.x = new Fixed(x);
+        this.y = new Fixed(y);
     }
 
     public Fixed2(Fixed x,Fixed y)
     {
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Vector3 ToVector3(int y)
     {
-        return new Vector3(this.X.ToFloat(), y, this.Y.ToFloat());
+        return new Vector3(this.x.ToFloat(), y, this.y.ToFloat());
     }
 
     public static Fixed2 operator+(Fixed2 a,Fixed2 b)
     {
-        return new Fixed2(a.X + b.X, a.Y + b.Y);
+        return new Fixed2(a.x + b.x, a.y + b.y);
     }
 
     public static Fixed2 operator-(Fixed2 a,Fixed2 b)
     {
-        return new Fixed2(a.X - b.X, a.Y - b.Y);
+        return new Fixed2(a.x - b.x, a.y - b.y);
     }
 
     public static Fixed2 operator*(Fixed2 a,Fixed b)
     {
-        return new Fixed2(a.X * b, a.Y * b);
+        return new Fixed2(a.x * b, a.y * b);
     }
 
  
@@ -51,14 +42,14 @@ public struct Fixed2
     {
         get
         {
-            if (X == 0 && Y == 0)
+            if (x == 0 && y == 0)
             {
                 return new Fixed2();
             }
-            Fixed n = ((X * X) + (Y * Y)).Sqrt();
-            Fixed2 result = new Fixed2(X / n, Y / n);
-            result.X = Fixed.Range(result.X, -1, 1);
-            result.Y = Fixed.Range(result.Y, -1, 1);
+            Fixed n = ((x * x) + (y * y)).Sqrt();
+            Fixed2 result = new Fixed2(x / n, y / n);
+            result.x = Fixed.Range(result.x, -1, 1);
+            result.y = Fixed.Range(result.y, -1, 1);
             return result;
         }
     }
@@ -67,11 +58,11 @@ public struct Fixed2
     {
         get
         {
-            if (X == 0 & Y == 0)
+            if (x == 0 & y == 0)
             {
                 return Fixed.zero;
             }
-            Fixed n = ((X * X) + (Y * Y)).Sqrt();
+            Fixed n = ((x * x) + (y * y)).Sqrt();
             return n;
         }
     }
@@ -90,30 +81,30 @@ public struct Fixed2
 
     public static Fixed Dot(Fixed2 a,Fixed2 b)
     {
-        return a.X * b.X + a.Y * b.Y;
+        return a.x * b.x + a.y * b.y;
     }
 
     public static Fixed2 operator-(Fixed2 a)
     {
-        return new Fixed2(-a.X, -a.Y);
+        return new Fixed2(-a.x, -a.y);
     }
 
     public static Fixed3 operator *(Fixed2 a, Fixed2 b)
     {
-        return new Fixed3(new Fixed(), new Fixed(), a.X * b.Y - a.Y * b.X);
+        return new Fixed3(new Fixed(), new Fixed(), a.x * b.y - a.y * b.x);
     }
 
     public static bool operator ==(Fixed2 a, Fixed2 b)
     {
-        return a.X == b.X && a.Y == b.Y;
+        return a.x == b.x && a.y == b.y;
     }
     public static bool operator !=(Fixed2 a, Fixed2 b)
     {
-        return a.X != b.X || a.Y != b.Y;
+        return a.x != b.x || a.y != b.y;
     }
     public override string ToString()
     {
-        return "{" + X.ToString() + "," + Y.ToString() + "}";
+        return "{" + x.ToString() + "," + y.ToString() + "}";
     }
 
     public override bool Equals(object obj)
@@ -125,4 +116,6 @@ public struct Fixed2
     {
         return base.GetHashCode();
     }
+
+    
 }

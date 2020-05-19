@@ -14,11 +14,8 @@ public class NetGameObject
     public bool active = true;
     private bool start = false;
 
-    public Action onStart;
-    public Action netUpdate;
-
     public FixedTransform transform = new FixedTransform();
-    public List<FixedComponent> fixedComponents;
+    public List<FixedComponent> fixedComponents = new List<FixedComponent>();
 
 
     public BattleNetworkHandler handler;
@@ -44,7 +41,12 @@ public class NetGameObject
     {
         this.clientId = clientId;
         this.handler = handler;
+
+        handler.gameLoop.update += NetUpdate;
     }
+
+    public virtual void Update() { }
+    public virtual void OnStart() { }
 
     protected void NetUpdate()
     {
@@ -53,17 +55,19 @@ public class NetGameObject
 
         if(!start)
         {
-            onStart();
+            OnStart();
             start = true;
         }
 
-        netUpdate();
+        Update();
 
         foreach(var component in fixedComponents)
         {
             component.Update();
         }
     }
+
+
 
     public T AddComponent<T>(T com = null) where T:FixedComponent,new()
     {

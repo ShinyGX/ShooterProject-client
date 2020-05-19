@@ -17,7 +17,7 @@ public interface INetworkProtocol
     byte GetByte();
     Fixed GetFixed();
     Fixed2 GetVector2();
-   
+    bool GetBool();
 
 
     byte[] OutputBytesStream();

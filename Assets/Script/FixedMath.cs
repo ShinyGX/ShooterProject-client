@@ -11,6 +11,15 @@ public class FixedMath
         return a + (b - a) * t;
     }
 
+    public static Fixed3 Lerp(Fixed3 a, Fixed3 b, float t)
+    {
+        return new Fixed3(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t);
+    }
+
+    public static Fixed3 Lerp(Fixed3 a,Fixed3 b,Fixed t)
+    {
+        return new Fixed3(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t);
+    }
 
 
     public static Fixed SmoothDamp(Fixed current, Fixed target, ref Fixed currentVelocity, Fixed smoothTime, Fixed maxSpeed, Fixed deltaTime)

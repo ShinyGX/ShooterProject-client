@@ -23,7 +23,6 @@ public class NetGameObjectView : MonoBehaviour
         transform.position = netGameObject.transform.position.ToVector3();
         transform.rotation = Quaternion.Euler(netGameObject.transform.rotation.ToVector3());
         transform.localScale = netGameObject.transform.scale.ToVector3();
-        netGameObject.onStart += OnStart;
     }
 
     protected virtual void OnStart(){ }
