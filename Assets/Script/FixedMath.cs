@@ -2,6 +2,18 @@
 
 public class FixedMath
 {
+
+
+    public static Fixed Abs(Fixed a)
+    {
+        if(a < Fixed.zero)
+        {
+            return -a;
+        }
+
+        return a;
+    }
+
     public static Fixed Lerp(Fixed a, Fixed b, float t)
     {
         return a + (b - a) * t;

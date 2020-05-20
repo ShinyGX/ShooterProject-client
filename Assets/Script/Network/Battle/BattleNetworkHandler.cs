@@ -28,9 +28,11 @@ public class BattleNetworkHandler : NetworkHandler
                 random = new Random((UInt64)seed);
                 Debug.Log("random seed " + seed.ToString());
                 PlayerCreator.Instance.OnInit(this);
+                PhysicManager.Instance.OnInit();
                 break;
             case MessageType.Frame:
                 gameLoop.ReceiveStep(protocol);
+                PhysicManager.Instance.Update();
                 break;
             case MessageType.End:
                 break;

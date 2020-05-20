@@ -17,7 +17,7 @@ public struct Fixed2
         this.y = y;
     }
 
-    public Vector3 ToVector3(int y)
+    public Vector3 ToVector3(int y = 0)
     {
         return new Vector3(this.x.ToFloat(), y, this.y.ToFloat());
     }

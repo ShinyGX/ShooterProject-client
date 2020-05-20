@@ -20,8 +20,8 @@ public class PlayerNetObject : NetGameObject
         this.transform.position = 
             FixedMath.Lerp(
                 this.transform.position, 
-                new Fixed3(this.transform.position.x + input.Direction.x, this.transform.position.y, this.transform.position.z + input.Direction.y), 
-                new Fixed(0.75f));
+                new Fixed3(this.transform.position.x + input.Direction.y, this.transform.position.y, this.transform.position.z + input.Direction.x), 
+                new Fixed(0.8f));
 
     }
 
