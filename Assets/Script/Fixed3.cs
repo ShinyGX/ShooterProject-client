@@ -34,6 +34,11 @@ public struct Fixed3
         return new Vector3(x.ToFloat(), y.ToFloat(), z.ToFloat());
     }
 
+    public Fixed2 toFixed2()
+    {
+        return new Fixed2(x, z);
+    }
+
     public static Fixed3 operator +(Fixed3 a, Fixed3 b)
     {
         return new Fixed3(a.x + b.x, a.y + b.y, a.z + b.z);

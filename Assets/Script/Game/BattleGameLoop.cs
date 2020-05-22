@@ -95,6 +95,10 @@ public class BattleGameLoop
             update?.Invoke();
             laterUpdate?.Invoke();
 
+            PhysicManager.Instance.RebuildQuadTree();
+
+
+
             FixedTime += BattleNetworkClient.deltaTime;
         }
 

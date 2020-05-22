@@ -15,6 +15,20 @@ public class PhysicManager : Singleton<PhysicManager>
         tree = new QuadTree(rect, 8);
     }
 
+    public void Insert(IShape collision)
+    {
+        tree.Insert(collision);
+    }
+
+    public List<IShape> Query(IShape range)
+    {
+        return tree.Query(range);
+    }
+
+    public void RebuildQuadTree()
+    {
+        tree = new QuadTree(rect, 8);
+    }
 
     public void Update()
     {

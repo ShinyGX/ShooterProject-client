@@ -16,6 +16,7 @@ public class NetGameObject
 
     public FixedTransform transform = new FixedTransform();
     public List<FixedComponent> fixedComponents = new List<FixedComponent>();
+    public Action LaterUpdate;
 
 
     public BattleNetworkHandler handler;
@@ -43,6 +44,7 @@ public class NetGameObject
         this.handler = handler;
 
         handler.gameLoop.update += NetUpdate;
+        handler.gameLoop.laterUpdate += NetLaterUpdate;
     }
 
     public virtual void Update() { }
@@ -65,11 +67,17 @@ public class NetGameObject
         {
             component.Update();
         }
+
     }
 
 
+    private void NetLaterUpdate()
+    {
+        LaterUpdate?.Invoke();
+    }
 
-    public T AddComponent<T>(T com = null) where T:FixedComponent,new()
+
+    public T AddComponent<T>(T com = null) where T: FixedComponent,new()
     {
         if (com == null)
         {
@@ -77,8 +85,21 @@ public class NetGameObject
         }
 
         com.gameObject = this;
+        com.Init();
+
         fixedComponents.Add(com);
         return com;
+    }
+
+    public T GetComponent<T>() where T: FixedComponent
+    {
+        for(int i = 0;i < fixedComponents.Count;i++)
+        {
+            if (fixedComponents[i] is T)
+                return fixedComponents[i] as T;
+        }
+
+        return null;
     }
 
     public void Reset(Fixed3 position,Fixed3 rotation)

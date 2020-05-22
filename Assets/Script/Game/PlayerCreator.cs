@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerCreator : MonoSignleton<PlayerCreator>, INetGameManager
+﻿public class PlayerCreator : MonoSignleton<PlayerCreator>, INetGameManager
 {
     public int player = 2;
     public int Layer { get { return 99; } }
@@ -16,6 +12,10 @@ public class PlayerCreator : MonoSignleton<PlayerCreator>, INetGameManager
             var netObj = new PlayerNetObject();
             netObj.Init(handler, i);
             netObj.prefab = "Player1";
+
+            var col = netObj.AddComponent<BoxCollision>();
+            col.width = 1.ToFixed();
+            col.height = 1.ToFixed();
 
             var localPos = playerPos + Fixed2.left * i.ToFixed();
             netObj.transform.position =

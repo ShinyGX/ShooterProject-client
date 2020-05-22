@@ -32,7 +32,6 @@ public class BattleNetworkHandler : NetworkHandler
                 break;
             case MessageType.Frame:
                 gameLoop.ReceiveStep(protocol);
-                PhysicManager.Instance.Update();
                 break;
             case MessageType.End:
                 break;

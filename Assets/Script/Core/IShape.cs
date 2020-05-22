@@ -2,7 +2,7 @@
 
 public interface IShape
 {
-    NetGameObject Data { get; set; }
+    Collision Data { get; set; }
 
     //是否包含点
     bool Contains(IShape point);
@@ -88,11 +88,16 @@ public class ShapeBase
 
 public class Rectangle : IShape
 {
-    public NetGameObject Data { get; set; }
+    public Collision Data { get; set; }
     public Fixed width, height;
     public Fixed2 center;
 
     public List<Fixed2> points;
+
+    public Rectangle()   
+        :this(1.ToFixed(), 1.ToFixed(), 0.ToFixed(), 0.ToFixed())
+    {   }
+
 
     public Rectangle(Fixed x, Fixed y, Fixed width, Fixed height)
     {
@@ -143,8 +148,20 @@ public class Rectangle : IShape
 
 public class Circle : IShape
 {
-    public NetGameObject Data { get; set; }
+    public Collision Data { get; set; }
     public Fixed x, y, r, rSquared;
+
+    public Circle()
+        :this(0.ToFixed(),0.ToFixed(),1.ToFixed())
+    {
+
+    }
+
+    public Circle(Fixed2 center, Fixed r)
+        : this(center.x, center.y, r)
+    {
+
+    }
 
     public Circle(Fixed x, Fixed y, Fixed r)
     {
