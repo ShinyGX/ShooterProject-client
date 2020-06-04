@@ -17,4 +17,33 @@ public class NetInputUnit
     {
         Direction = protocol.GetVector2();
     }
+
+
+    private bool CanProcessInput()
+    {
+        return true;
+    }
+
+    public float GetLookInputHorizontal()
+    {
+        return 0f;
+    }
+
+    public float GetLookInputVertical()
+    {
+        return 0f;
+    }
+
+    public Vector3 GetMoveInput()
+    {
+        if(CanProcessInput())
+        {
+            Vector3 move = new Vector3(Direction.x.ToFloat(), 0f, Direction.y.ToFloat());
+
+            move = Vector3.ClampMagnitude(move, 1);
+            return move;
+        }
+
+        return Vector3.zero;
+    }
 }

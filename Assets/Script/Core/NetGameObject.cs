@@ -18,6 +18,9 @@ public class NetGameObject
     public List<FixedComponent> fixedComponents = new List<FixedComponent>();
     public Action LaterUpdate;
 
+    public GameObject logicObject;
+    public GameObject viewObject;
+
 
     public BattleNetworkHandler handler;
 
@@ -25,7 +28,7 @@ public class NetGameObject
     {
         get
         {
-            return BattleNetworkClient.deltaTime;
+            return BattleApplicationBooter.deltaTime;
         }
     }
 
@@ -45,6 +48,11 @@ public class NetGameObject
 
         handler.gameLoop.update += NetUpdate;
         handler.gameLoop.laterUpdate += NetLaterUpdate;
+    }
+
+    public virtual void InitAfterCreateViewObject()
+    {
+
     }
 
     public virtual void Update() { }
@@ -118,9 +126,22 @@ public class NetGameObject
         GameObject obj = GameObject.Instantiate(GetPrefab());
         var view = obj.GetComponent<NetGameObjectView>();
         if (view == null)
-            view = obj.AddComponent<NetGameObjectView>();
-        view.NetGameObject = this;
+            view = obj.AddComponent<NetGameObjectView>();    
+        this.viewObject = obj;
 
+        GameObject netObj = GameObject.Instantiate(GetPrefab());
+        netObj.layer = LayerMask.NameToLayer("Network");
+        netObj.name = "net_obj";
+
+        netObj.AddComponent<NetObjectDebug>();
+
+        Renderer render = netObj.GetComponent<Renderer>();
+        render.material.color = Color.blue;
+        render.enabled = false;
+        this.logicObject = netObj;
+
+        view.NetGameObject = this;
+        InitAfterCreateViewObject();
         return obj;
     }
 
@@ -138,4 +159,5 @@ public class NetGameObject
     {
         return "Perfabs/" + prefab;
     }
+
 }

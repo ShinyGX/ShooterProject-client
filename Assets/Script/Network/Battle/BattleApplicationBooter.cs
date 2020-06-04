@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleNetworkClient : MonoBehaviour
+public class BattleApplicationBooter : MonoBehaviour
 {
 
     public static readonly Fixed deltaTime = new Fixed(0.066f);
+    public static float DeltaTime
+    {
+        get
+        {
+            return deltaTime.ToFloat();
+        }
+    }
+
 
     private BattleNetworkHandler handler;
 
@@ -19,6 +27,8 @@ public class BattleNetworkClient : MonoBehaviour
         handler = new BattleNetworkHandler();
    
         handler.Connect("127.0.0.1",9999);
+
+        Physics.autoSimulation = false;
     }
 
 

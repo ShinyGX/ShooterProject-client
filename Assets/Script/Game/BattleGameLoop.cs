@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using UnityEngine;
 
 public class BattleGameLoop
 {
@@ -30,21 +31,34 @@ public class BattleGameLoop
         }
     }
 
-    public Fixed FixedTime
+    private static Fixed time = Fixed.zero;
+    public static float Time
     {
-        get;protected set;
+        get
+        {
+            return time.ToFloat();
+        }
     }
+
+    public static Fixed FixedTime
+    {
+        get
+        {
+            return time;
+        }
+    }
+
 
     public bool IsLoaclPlayer(int id)
     {
         return id == Gamedata.Instance.ClinetId;
     }
 
-    public BattleGameLoop(BattleNetworkHandler handler,int max)
+    public BattleGameLoop(BattleNetworkHandler handler, int max)
     {
         this.handler = handler;
 
-        timer = new Timer(BattleNetworkClient.deltaTime.ToFloat() * 1000);
+        timer = new Timer(BattleApplicationBooter.deltaTime.ToFloat() * 1000);
         timer.Elapsed += SendFrame;
         timer.Enabled = true;
 
@@ -57,7 +71,7 @@ public class BattleGameLoop
         }
     }
 
-    private void SendFrame(object sender,ElapsedEventArgs args)
+    private void SendFrame(object sender, ElapsedEventArgs args)
     {
         if (Gamedata.Instance.ClinetId < 0)
             return;
@@ -90,16 +104,15 @@ public class BattleGameLoop
             }
         }
 
-        for(;clientStep < serverStep;clientStep++)
+        for (; clientStep < serverStep; clientStep++)
         {
+           
             update?.Invoke();
             laterUpdate?.Invoke();
 
-            PhysicManager.Instance.RebuildQuadTree();
+            Physics.Simulate(BattleApplicationBooter.DeltaTime);
 
-
-
-            FixedTime += BattleNetworkClient.deltaTime;
+            time += BattleApplicationBooter.deltaTime;
         }
 
     }

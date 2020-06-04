@@ -39,6 +39,18 @@ public struct Fixed3
         return new Fixed2(x, z);
     }
 
+    public Fixed Magnitude()
+    {
+        return Fixed.Sqrt(x * x + y * y + z * z);
+    }
+
+    public Fixed3 Normalized()
+    {
+        Fixed len = Magnitude();
+        return new Fixed3(x / len, y / len, z / len);
+    }
+
+
     public static Fixed3 operator +(Fixed3 a, Fixed3 b)
     {
         return new Fixed3(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -47,6 +59,7 @@ public struct Fixed3
     {
         return new Fixed3(a.x - b.x, a.y - b.y, a.z - b.z);
     }
+
 
 
     public static Fixed3 left = new Fixed3(-1, 0);

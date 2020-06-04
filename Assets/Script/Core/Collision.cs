@@ -20,6 +20,9 @@ public abstract class Collision : FixedComponent
     {
         base.Init();
         gameObject.LaterUpdate += LaterUpdate;
+
+        currentCollision = new List<Collision>();
+        lastCollision = new List<Collision>();
     }
 
     public override void Update()

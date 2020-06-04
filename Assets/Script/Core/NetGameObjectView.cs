@@ -20,9 +20,9 @@ public class NetGameObjectView : MonoBehaviour
 
     private void InitGameObject()
     {
-        transform.position = netGameObject.transform.position.ToVector3();
-        transform.rotation = Quaternion.Euler(netGameObject.transform.rotation.ToVector3());
-        transform.localScale = netGameObject.transform.scale.ToVector3();
+        transform.position = NetGameObject.logicObject.transform.position;
+        transform.rotation = NetGameObject.logicObject.transform.rotation;
+        transform.localScale = NetGameObject.logicObject.transform.localScale;
     }
 
     protected virtual void OnStart(){ }
@@ -32,14 +32,16 @@ public class NetGameObjectView : MonoBehaviour
         if (netGameObject == null)
             return;
 
-        transform.position = Vector3.Lerp(transform.position, netGameObject.transform.position.ToVector3(), t);
-        transform.rotation = Quaternion.Euler(netGameObject.transform.rotation.ToVector3());
+        transform.position = Vector3.Lerp(transform.position, netGameObject.logicObject.transform.position, t);
+        transform.rotation = Quaternion.Lerp(transform.rotation, NetGameObject.logicObject.transform.rotation, t);
+        transform.localScale = Vector3.Lerp(transform.localScale, NetGameObject.logicObject.transform.localScale, t);
     }
 
     private void Update()
     {
         Lerp(Time.deltaTime * 10);
     }
+
 
 
 
