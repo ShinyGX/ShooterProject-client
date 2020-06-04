@@ -13,6 +13,7 @@ public class CharacterNetController : NetGameObject
     private float maxSpeedInAir = 10f;
     private float accelerationSpeedInAir = 25f;
     private float gravity = 20f;
+    private float jumpForce = 9f;
 
     public Vector3 lastImpactSpeed;
 
@@ -67,7 +68,23 @@ public class CharacterNetController : NetGameObject
             Vector3 targetVelocity = maxSpeedOnGround * worldspaceMoveInput * speedModify;
             targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, groundNormal) * targetVelocity.magnitude;
             characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpnessOnGround * BattleApplicationBooter.DeltaTime);
+
+            //jump
+            if(isOnGround && input.GetJumpInput())
+            {
+                characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
+
+                characterVelocity += Vector3.up * jumpForce;
+
+                lastJumpTime = BattleGameLoop.Time;
+
+
+                isOnGround = false;
+                groundNormal = Vector3.up;
+            }
+
         }
+        //in air
         else
         {
             characterVelocity += worldspaceMoveInput * accelerationSpeedInAir * BattleApplicationBooter.DeltaTime;

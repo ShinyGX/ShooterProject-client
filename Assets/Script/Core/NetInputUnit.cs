@@ -34,6 +34,11 @@ public class NetInputUnit
         return 0f;
     }
 
+    public bool GetJumpInput()
+    {
+        return false;
+    }
+
     public Vector3 GetMoveInput()
     {
         if(CanProcessInput())
